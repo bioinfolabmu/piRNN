@@ -1,0 +1,74 @@
+piRNN Program(Python) 
+Kai Wang 
+01/13/2017
+
+GENERAL INFORMATION
+-----------------------------------------------------------------
+
+- piRNN is a program that used for piRNA detection. The deep 
+  learning library that we used is Keras that running on top
+  of Theano.
+  
+- Software prerequisites:
+  - Python 2.7-3.5 (packages prerequisites:Keras, Numpy, pandas, Theano)
+
+- The program can be downloaded from XXXXX
+  After downloading and unziping, the following items should be 
+  found in the folder:
+  	- piRNN.py
+  	- functions.py
+  	- Ele_piRNN.h5
+  	- Dro_piRNN.h5
+  	- Rat_piRNN.h5
+  	- Hum_piRNN.h5
+  	- README
+  	- test_input_data.fa
+
+- Four species' (C. elegans, D. melanogaster, Rat, and Human) piRNAs
+  data were used for training four differnet models, respectively. 
+
+USAGE NOTES
+-----------------------------------------------------------------
+
+- The program can be easily executed in a terminal like:
+
+python piRNN.py [-h] -s <species code> -i <input file in fasta format> -o <output file>
+
+- The species code should be a number that from 1, 2, 3, or 4.
+  - 1 means C. elegans model.
+  - 2 means D. melanogaster model.
+  - 3 means Rat model.
+  - 4 means Human model.
+
+- The input file should be small RNA data that in fasta format.
+- The output file is also in fasta format.
+- Use "-h" to show help information.
+
+RUN EXAMPLE DATA
+-----------------------------------------------------------------
+
+- The test_input_data.fa is used for testing the program. Users can 
+  run the following command to test the program.
+
+python piRNN.py -s 4 -i test_input_data.fa -o out.fa
+
+- The result should be in out.fa
+
+TRAIN YOUR OWN MODEL
+-----------------------------------------------------------------
+
+- Please see details in folder 'Training'.
+
+CONTACT INFORMATION
+-----------------------------------------------------------------
+
+Prof. Chun Liang, 
+Department of Biology, Miami University, Oxford, Ohio, USA
+Email: liangc@miamioh.edu 
+
+REFERENCES
+-----------------------------------------------------------------
+Keras Documentation (https://keras.io/)
+Theano Documentation (http://deeplearning.net/software/theano/)
+NVIDIA TESLA K10 GPU Computing Accelerators 
+(http://www.nvidia.com/content/PDF/kepler/NV_DS_TeslaK_Family_May_2012_LR.pdf)
