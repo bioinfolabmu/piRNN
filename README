@@ -10,7 +10,7 @@ GENERAL INFORMATION
   of Theano.
   
 - Software prerequisites:
-  - Python 2.7-3.5 (packages prerequisites:Keras, Numpy, pandas, Theano)
+  - Python 2.7-3.5 (packages prerequisites:Keras 1.1.0, Numpy 1.12.1, pandas 0.19.1, Theano 0.9.0)
 
 - The program can be downloaded from XXXXX
   After downloading and unziping, the following items should be 
