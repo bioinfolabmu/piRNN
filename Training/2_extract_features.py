@@ -22,6 +22,7 @@ def get_kmer(seq):
 	ntarr = ("A","G","C","T")
 
 	kmerArray = []
+	kmerre = []
 	rst = []
 	fst = 0
 	total = 0.0
@@ -56,34 +57,44 @@ def get_kmer(seq):
 					str4 = str3 + ntarr[y]
 					kmerArray.append(str4)
 ############################################
-#change this part for 4mer or 5mer
-	for n in range(4):
-		str1 = ntarr[n]
-		for m in range(4):
-			str2 = str1 + ntarr[m]
-			for x in range(4):
-				str3 = str2 + ntarr[x]
-				for y in range(4):
-					str4 = str3 + ntarr[y]
-					for z in range(4):
-						str5 = str4 + ntarr[z]
-						kmerArray.append(str5)
+	for i in ntarr:
+		kmerre.append(i)
+		for m in kmerArray:
+			st = i + m
+			kmerre.append(st)
 ############################################
-	for n in range(len(kmerArray)):
-		item = seq.count(kmerArray[n])
+	for n in range(len(kmerre)):
+		item = seq.count(kmerre[n])
 		total = total + item
 		rst.append(item)
 
+	sub_seq = []
 	if seq.startswith("T"):
-		fst = 1
-	else:
-		fst = 0
+		sub_seq.append(seq[0:1])
+		sub_seq.append(seq[0:2])
+		sub_seq.append(seq[0:3])
+		sub_seq.append(seq[0:4])
+		sub_seq.append(seq[0:5])
+
+	if seq[9:10] == "A":
+		sub_seq.append(seq[9:10])
+		sub_seq.append(seq[8:10])
+		sub_seq.append(seq[7:10])
+		sub_seq.append(seq[6:10])
+		sub_seq.append(seq[5:10])
+		sub_seq.append(seq[9:11])
+		sub_seq.append(seq[9:12])
+		sub_seq.append(seq[9:13])
+		sub_seq.append(seq[9:14])
+
+	for i in sub_seq:
+		if "N" not in i:
+			inx = kmerre.index(i)
+			rst[inx] += 1
+
 	for n in range(len(rst)):
 		rst[n] = rst[n]/total
 
-
-	rst.insert(0,fst)
-	
 	return rst
 ########################################
 po_file = open(argv[1],'r')
