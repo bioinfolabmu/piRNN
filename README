@@ -40,6 +40,8 @@ python piRNN.py [-h] -s <species code> -i <input file in fasta format> -o <outpu
 - The output file is also in fasta format.
 - Use "-h" to show help information.
 
+*please unzip the model files first.
+
 RUN EXAMPLE DATA
 -----------------------------------------------------------------
 
