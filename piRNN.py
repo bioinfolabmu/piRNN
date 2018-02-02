@@ -16,12 +16,17 @@ from functions import get_kmer
 from functions import prediction
 from functions import output
 
+from keras.models import load_model
+
 #read the file
 file = open(args.input_file, 'r')
+
 print("Loading Data ...")
+
 seq_mat = []
 seq_dic = {}
 seq_id  = []
+
 for ID, seq in read_fasta(file):
 	mat = []
 	mat = get_kmer(seq)
@@ -32,11 +37,20 @@ for ID, seq in read_fasta(file):
 #prepare data for prediction
 dataframe = pandas.DataFrame(seq_mat)
 dataset = dataframe.values
-X = dataset[:,0:341].astype(float)
+
+x = dataset[:,0:1364].astype(float)
+
+X = np.zeros(shape=(len(x),4,341,1))
+
+for i in range(len(x)):
+	tp = np.asarray(x[i])
+	tp = np.resize(tp,(4,341,1))
+	X[i] = tp
 
 #prediction
 print("Loading Model and predicting ...")
 sp = int(args.species)
+
 out = prediction(X, sp)
 
 #get piRNA sequences
