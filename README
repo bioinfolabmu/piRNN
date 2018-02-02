@@ -5,14 +5,10 @@ Kai Wang
 GENERAL INFORMATION
 -----------------------------------------------------------------
 
-- piRNN is a program that used for piRNA detection. The deep 
-  learning library that we used is Keras that running on top
-  of Theano.
-  
-- Software prerequisites:
-  - Python 2.7-3.5 (packages prerequisites:Keras 1.1.0, Numpy 1.12.1, pandas 0.19.1, Theano 0.9.0)
+- piRNN is a program that used for piRNA detection. The deep learning 
+  library that we used is Keras that running on top of TensorFlow.
 
-- The program can be downloaded from XXXXX
+- The program can be downloaded at htps://github.com/wangk4/piRNN
   After downloading and unziping, the following items should be 
   found in the folder:
   	- piRNN.py
@@ -54,21 +50,13 @@ python piRNN.py -s 4 -i test_input_data.fa -o out.fa
 
 - The result should be in out.fa
 
-TRAIN YOUR OWN MODEL
------------------------------------------------------------------
-
-- Please see details in folder 'Training'.
-
 CONTACT INFORMATION
 -----------------------------------------------------------------
+Kai Wang,
+Department of Biology, Miami University, Oxford, Ohio, USA   
+Email: wangk4@miamioh.edu
 
 Prof. Chun Liang, 
 Department of Biology, Miami University, Oxford, Ohio, USA
 Email: liangc@miamioh.edu 
 
-REFERENCES
------------------------------------------------------------------
-Keras Documentation (https://keras.io/)
-Theano Documentation (http://deeplearning.net/software/theano/)
-NVIDIA TESLA K10 GPU Computing Accelerators 
-(http://www.nvidia.com/content/PDF/kepler/NV_DS_TeslaK_Family_May_2012_LR.pdf)
