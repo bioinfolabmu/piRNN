@@ -23,9 +23,9 @@ file = open(args.input_file, 'r')
 
 print("Loading Data ...")
 
-seq_mat = []
-seq_dic = {}
-seq_id  = []
+seq_mat = [] # store seq matrix
+seq_dic = {} # store seq dict for pair "ID => sequence"
+seq_id  = [] # store ID
 
 for ID, seq in read_fasta(file):
 	mat = []

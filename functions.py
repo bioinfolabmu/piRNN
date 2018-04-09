@@ -15,9 +15,12 @@ def read_fasta(fa):
 		else:
 			seq.append(line)
 	if name: yield (name, ''.join(seq))
+#count kmer
+def countoverlap(seq,kmer):
+	return len([1 for i in range(len(seq)) if seq.startswith(kmer,i)])
 #get the kmer
 def get_kmer(seq):
-	ntarr = ("A","G","C","T")
+	ntarr = ("A","C","G","T")
 
 	kmerArray = []
 	kmerre = []
@@ -61,8 +64,9 @@ def get_kmer(seq):
 			st = i + m
 			kmerre.append(st)
 ############################################
+#get the second part of features
 	for n in range(len(kmerre)):
-		item = seq.count(kmerre[n])
+		item = countoverlap(seq,kmerre[n])
 		total = total + item
 		rst.append(item)
 
