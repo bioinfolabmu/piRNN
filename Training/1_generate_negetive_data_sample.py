@@ -9,31 +9,39 @@ import random
 nege_seq = []
 #1. generate random sequences from 1st Markov chain
 #############################
-def getfirst():
+def get_first(A,C,G,T):
 	"this function is to get the first nt for the random sequence"
-	rn = random.randrange(1,5)
-	if rn == 1:
-		ot = 'A'
-	elif rn == 2:
-		ot = 'G'
-	elif rn == 3:
-		ot = 'C'
-	elif rn == 4:
-		ot = 'T'
-	return ot
+	total = A + C + G + T
+	rn = random.uniform(0,total)
+	lt1 = A
+	lt2 = lt1 + C
+	lt3 = lt2 + G
+	lt4 = lt3 + T
+
+	if rn < lt1:
+		ot = "A"
+	elif rn < lt2 and rm >= lt1:
+		ot = "C"
+	elif rn < lt3 and rm >= lt2:
+		ot = "G"	
+	elif rn < lt4 and rm >= lt3:
+		ot = "T"
 
 def getlength(min_cd,max_cd):
 	"get the sequence length"
-	leng = random.randrange(min_cd, max_cd+1)
+	leng = random.randrange(min_cd, max_cd+1, 1)
 	return leng
 
 def getnext(nt,mat):
+	"this fucntion is used to get the next nt based on the probability matirx"
+	# if the first nt is A, the get the four numbers of A from the matrix to get the next nt
+	# same for other cases
 	if nt == 'A':
 		lt1 = mat[0]
 		lt2 = lt1 + mat[1]
 		lt3 = lt2 + mat[2]
 		lt4 = lt3 + mat[3]
-		rn = random.randrange(0,lt4)
+		rn = random.uniform(0,lt4)
 		if rn < lt1:
 			next_nt = 'A'
 		elif rn < lt2 and rn >= lt1:
@@ -47,7 +55,7 @@ def getnext(nt,mat):
 		lt2 = lt1 + mat[5]
 		lt3 = lt2 + mat[6]
 		lt4 = lt3 + mat[7]
-		rn = random.randrange(0,lt4)
+		rn = random.uniform(0,lt4)
 		if rn < lt1:
 			next_nt = 'A'
 		elif rn < lt2 and rn >= lt1:
@@ -61,7 +69,7 @@ def getnext(nt,mat):
 		lt2 = lt1 + mat[9]
 		lt3 = lt2 + mat[10]
 		lt4 = lt3 + mat[11]
-		rn = random.randrange(0,lt4)
+		rn = random.uniform(0,lt4)
 		if rn < lt1:
 			next_nt = 'A'
 		elif rn < lt2 and rn >= lt1:
@@ -75,7 +83,7 @@ def getnext(nt,mat):
 		lt2 = lt1 + mat[13]
 		lt3 = lt2 + mat[14]
 		lt4 = lt3 + mat[15]
-		rn = random.randrange(0,lt4)
+		rn = random.uniform(0,lt4)
 		if rn < lt1:
 			next_nt = 'A'
 		elif rn < lt2 and rn >= lt1:
@@ -85,7 +93,9 @@ def getnext(nt,mat):
 		elif rn < lt4 and rn >= lt3:
 			next_nt = 'T'
 	return next_nt
+
 def read_fasta(fp):
+	"this function is used for read fasta file"
 	name, seq = None, []
 	for line in fp:
 		line = line.rstrip()
@@ -96,10 +106,12 @@ def read_fasta(fp):
 			seq.append(line)
 	if name: yield (name, ''.join(seq))
 #############################
-
+# this is used for get the matirx
+# since we use the 1st markov chain
+# in total 16 numbers will be calculated and put into the matrix
 fp = open(argv[1],'r')
 
-i = 0
+i = 0 # i is used for count sequence numbers, this step will procude 50% sequences for negetive sample
 
 sub_lt = []
 max_cd = ''
@@ -121,7 +133,7 @@ TA = 0
 TG = 0
 TC = 0
 TT = 0
-
+# use a moving window (2 nt) to go throught all the sequences
 for line in fp.readlines():
 	line = line.strip('\n')
 	if line.startswith('>'):
@@ -200,15 +212,20 @@ sub_lt.append(CT)
 sub_lt.append(TA)
 sub_lt.append(TG)
 sub_lt.append(TC)
-sub_lt.append(TT)
+sub_lt.append(TT) 
 
-num = int(i / 2)
-#print(num)
+total_A = AA * 2 + AG + AC + AT + GA + CA + TA
+total_G = GA + GG * 2 + GC + GT + AG + CG + TG
+total_C = CA + CG + CC * 2 + CT + AC + GC + TC
+total_T = TA + TG + TC + TT * 2 + AT + GT + CT
 
+num = int(i / 2) # half of negetive sample are generated from here
 
+# this loop is used for generate sequences
+# once the sequence length meet the length requirement, then jump out of the while loop and put the sequence into negetive set
 for index in range(num):
 	leng = getlength(min_cd - 1, max_cd)
-	seq = getfirst()
+	seq = getfirst(toatl_A, total_G, total_C, total_T)
 	while(1):
 		next_nt = getnext(seq[-1],sub_lt)
 		seq = seq + next_nt
@@ -239,12 +256,12 @@ for ids, seqs in read_fasta(trna):
 
 for ins in range(remain):
 	leng = getlength(min_cd-1, max_cd)
-	seq_ins = int(random.randrange(0,len(temp)))
+	seq_ins = int(random.uniform(0,len(temp)))
 	seq = temp[seq_ins]
 	if len(seq) <= leng:
 		redo
 	else:
-		ran = int(random.randrange(0,len(seq)-leng))
+		ran = int(random.uniform(0,len(seq)-leng))
 		nege_seq.append(seq[ran:(ran + leng)])
 trna.close()
 ###############################

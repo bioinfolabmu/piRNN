@@ -18,18 +18,19 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 
+#load the npy data
 x_train = np.load('X_train.npy')
 y_train = np.load('Y_train.npy')
 
 x_test = np.load('X_test.npy')
 y_test = np.load('Y_test.npy')
-
+# change the label into One-hot vector
 X_train = np.zeros(shape=(len(x_train),4,341,1))
 Y_train = np_utils.to_categorical(y_train,2)
 
 X_test = np.zeros(shape=(len(x_test),4,341,1))
 Y_test = np_utils.to_categorical(y_test,2)
-
+#reform the vector into a 4 x 341 matrix
 for i in range(len(x_train)):
 	tp = np.asarray(x_train[i])
 	tp = np.resize(tp,(4,341,1))
@@ -39,7 +40,7 @@ for i in range(len(x_test)):
 	tp = np.asarray(x_test[i])
 	tp = np.resize(tp,(4,341,1))
 	X_test[i] = tp
-
+# parameters for cnn training
 rows, cols = 4, 341
 
 nb_filters = 32
@@ -73,5 +74,5 @@ model.fit(x=X_train,y=Y_train, validation_data=(X_test,Y_test), batch_size=32, e
 score = model.evaluate(X_test, Y_test, verbose = 0)
 print('Test Score: ', score[0])
 print('Test Accur: ', score[1])
-model.save('model.h5')
+model.save('model.h5') # the model will be saved into "model.h5" file
 

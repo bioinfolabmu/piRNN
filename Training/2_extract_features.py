@@ -1,11 +1,14 @@
 #2017-01-03
 #Kai Wang
 #usage: python 2_extract_features.py piRNA.fa nege.fa 
-
+# this code is same to the functions.py
 import sys
 from sys import argv
 import random
 
+######################################
+def countoverlap(seq,kmer):
+	return len([1 for i in range(len(seq)) if seq.startswith(kmer,i)])
 ######################################
 def read_fasta(fa):
 	name,seq = None, []
@@ -19,7 +22,7 @@ def read_fasta(fa):
 	if name: yield (name, ''.join(seq))	
 ######################################
 def get_kmer(seq):
-	ntarr = ("A","G","C","T")
+	ntarr = ("A","C","G","T")
 
 	kmerArray = []
 	kmerre = []
@@ -64,7 +67,7 @@ def get_kmer(seq):
 			kmerre.append(st)
 ############################################
 	for n in range(len(kmerre)):
-		item = seq.count(kmerre[n])
+		item = countoverlap(seq,kmerre[n])
 		total = total + item
 		rst.append(item)
 
@@ -88,9 +91,8 @@ def get_kmer(seq):
 		sub_seq.append(seq[9:14])
 
 	for i in sub_seq:
-		if "N" not in i:
-			inx = kmerre.index(i)
-			rst[inx] += 1
+		inx = kmerre.index(i)
+		rst[inx] += 1
 
 	for n in range(len(rst)):
 		rst[n] = rst[n]/total
@@ -104,7 +106,7 @@ posi_set = []
 for ID,seq in read_fasta(po_file):
 	po_mat = []
 	po_mat = get_kmer(seq)
-	po_mat.append("P")
+	po_mat.append(1)
 	posi_set.append(po_mat)
 
 random.shuffle(posi_set)
@@ -126,7 +128,7 @@ nega_set = []
 for ID,seq in read_fasta(ne_file):
 	ne_mat = []
 	ne_mat = get_kmer(seq)
-	ne_mat.append("N")
+	ne_mat.append(0)
 	nega_set.append(ne_mat)
 
 random.shuffle(nega_set)
