@@ -6,7 +6,8 @@ In order to train your own model for piRNA prediction in other species, three fi
 2. mature microRNA sequences of the species
 3. tRNA sequences (http://gtrnadb2009.ucsc.edu/)
 
-Before training the model, please make sure all files are saved in the same folder as the scripts. 
+Before training the model, please make sure all files are saved in the same folder as the scripts 
+and use 0_format_input_sequence.py to remove sequence with "N". 
 
 ------------------------------------------------------------------------------
 Step1 Run “1_generate_negetive_data_sample.py” to generate the negative data set with the following command line:
