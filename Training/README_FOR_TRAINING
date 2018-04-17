@@ -33,3 +33,8 @@ Six files will be generated to finally obtain the model.
 Step4 Run the python scripts “4_generate_model.py”, the model will be saved as “model.h5”
 
 ~$ python  4_generate_model.py
+------------------------------------------------------------------------------
+For running piRNN with your own model, please modify the function.py code in line 105,
+replace the "Ele_piRNN.h" to "model.h5". 
+Then you can run the piRNN on your own model. 
+When you run piRNN with your own model, please selcet "-s 1".
